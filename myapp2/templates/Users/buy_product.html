@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="buy-product">
+    <h2>Buy product<h2>
+    
+    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+    <h3>{{ product.product_name }}</h3>
+    <p class="price">Price: ₹{{ product.price }}</p>
+    <p><b>Description:</b> {{ product.description }}</p>
+    <p><b>Quantity:</b> {{ product.quantity }}</p>
+    <button class="btn">Buy Now</button>
+</div>
+<style>
+    .buy-product {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+        width: 30%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .price {
+        font-size: 18px;
+        color: #1e7e34;
+        font-weight: bold;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 14px;
+        color: #777;
+    }
+
+{% endblock %}

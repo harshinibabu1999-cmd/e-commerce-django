@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .table-container {
+        width: 95%;
+        margin: 30px auto;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #355dc2;
+        color: white;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    img.product-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #eee;
+    }
+    
+    .action-buttons{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-edit {
+        padding: 6px 12px;
+        background-color: #fafafa;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+
+    .btn-delete {
+        padding: 6px 12px;
+        background-color: #ffffff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+
+    .btn-edit:hover {
+        background-color: #81878d;
+    }
+
+    .btn-delete:hover {
+        background-color: #81878d;
+    }
+</style>
+
+<h2 style="text-align:center; margin-top:20px;">Admin Product List</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Price (₹)</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in products %}
+            <tr>
+                <td>
+                    <img src="{{ p.image.url }}" class="product-img" alt="{{ p.product_name }}">
+                </td>
+                <td>{{ p.product_name }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.quantity }}</td>
+                <td>{{ p.description }}</td>
+                <td>
+                    <div class="action-buttons">
+                    <a href="{% url 'myapp2:edit_product' p.id %}" class="btn-edit">✏️</a>
+                    <a href="{% url 'myapp2:delete_product' p.id %}" class="btn-delete">🗑️</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No products available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

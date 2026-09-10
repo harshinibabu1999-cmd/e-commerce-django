@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .edit-container {
+        width: 450px;
+        margin: 60px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .edit-container h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+   
+    .product-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #5e9cff;
+        margin-bottom: 20px;
+    }
+
+    .edit-container form {
+        text-align: left;
+    }
+
+    .edit-container form p {
+        margin-bottom: 15px;
+    }
+
+    .edit-container input,
+    .edit-container textarea,
+    .edit-container select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 10px;
+        background-color: #5e9cff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+        background-color: #2381ad;
+    }
+
+    .btn-back {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        text-decoration: none;
+        color: #555;
+        font-size: 14px;
+    }
+
+    .btn-back:hover {
+        color: #000;
+    }
+</style>
+
+<div class="edit-container">
+    <h1>Edit Product</h1>
+
+    
+    {% if product.image %}
+        
+        <img src="{{ product.image.url }}" class="product-image" alt="Product Image">
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label for="id_image">Image:</label><br>
+            <input type="file" name="image" id="id_image">
+        </p>
+        <p>
+            <label for="id_product_name">Product Name:</label><br>
+            <input type="text" name="product_name" id="id_product_name" value="{{ product.product_name }}" required>
+        </p>
+        <p>
+            <label for="id_price">Price:</label><br>
+            <input type="number" name="price" id="id_price" value="{{ product.price }}" required>
+        </p>
+        <p>
+            <label for="id_quantity">Quantity:</label><br>
+            <input type="text" name="quantity" id="id_quantity" value="{{ product.quantity }}" required>
+        </p>
+        <p>
+            <label for="id_description">Description:</label><br>
+            <textarea name="description" id="id_description" required>{{ product.description }}</textarea>
+        </p>
+
+        <button type="submit" class="btn-save">Save Changes</button>
+    </form>
+
+    <a href="{% url 'myapp2:product_list' %}" class="btn-back">
+        ← Back to Product List
+    </a>
+</div>
+
+{% endblock %}

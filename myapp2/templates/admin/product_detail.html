@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .product-container {
+        max-width: 700px;
+        margin: 80px auto;
+        padding: 40px;
+        background: linear-gradient(135deg, #c3ec52, #0ba29d);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .product-container h2 {
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .product-container img {
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+    }
+
+    .product-details {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .add-btn {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 25px;
+        background-color: #ffffff;
+        color: #0ba29d;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s ease;
+    }
+
+    .add-btn:hover {
+        background-color: #f1f1f1;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="product-container">
+    <h2>Product Created Successfully ✅</h2>
+
+    <img src="{{ product.image.url }}" width="250">
+
+    <div class="product-details">
+        <b>Name:</b> {{ product.name }} <br><br>
+        <b>Price:</b> ₹{{ product.price }} <br><br>
+        <b>Quantity:</b> {{ product.quantity }} <br><br>
+        <b>Description:</b> {{ product.description }}
+    </div>
+
+    <a href="{% url 'myapp:admin_add_product' %}" class="add-btn">
+        ➕ Add Another Product
+    </a>
+</div>
+
+{% endblock %}

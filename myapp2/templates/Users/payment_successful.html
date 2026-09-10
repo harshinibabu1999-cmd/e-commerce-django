@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="success-container">
+    <div class="success-box">
+        <div class="checkmark">✔</div>
+        <h2>Payment Successful!</h2>
+        <p>Your order has been placed successfully.</p>
+
+        <div class="buttons">
+            <a href="{% url 'myapp2:customer_product_list' %}" class="home-btn">
+                Continue Shopping
+            </a>
+
+            <a href="{% url 'myapp2:cart_view' %}" class="cart-btn">
+                View Cart
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.success-box {
+    background: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 400px;
+}
+
+.checkmark {
+    font-size: 50px;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.success-box h2 {
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.success-box p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.buttons a {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.home-btn {
+    background: #007bff;
+}
+
+.home-btn:hover {
+    background: #0056b3;
+}
+
+.cart-btn {
+    background: #6c757d;
+}
+
+.cart-btn:hover {
+    background: #5a6268;
+}
+</style>
+
+{% endblock %}

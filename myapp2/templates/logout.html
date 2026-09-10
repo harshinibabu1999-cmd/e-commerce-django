@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .logout-container {
+        width: 400px;
+        margin: 120px auto;
+        padding: 40px;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .logout-container h2 {
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    .logout-container p {
+        margin-bottom: 30px;
+        font-size: 16px;
+        color: #34495e;
+    }
+
+    .logout-btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        text-decoration: none;
+    }
+
+    .logout-btn:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="logout-container">
+    <h2>Logout</h2>
+    <p>Are you sure you want to logout?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Confirm Logout</button>
+    </form>
+</div>
+
+{% endblock %}

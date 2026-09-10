@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .cart-container {
+        max-width: 900px;
+        margin: 80px auto;
+        padding: 30px;
+        background: linear-gradient(135deg, #f6d365, #fda085);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .qty-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .qty-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.3s ease;
+    }
+
+    .qty-btn:hover {
+        background-color: #1e7e34;
+    }
+
+    .remove-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #dc3545;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.3s ease;
+    }
+
+    .remove-btn:hover {
+        background-color: #c82333;
+    }
+
+    .cart-total {
+        text-align: right;
+    }
+
+    .checkout-btn {
+        display: inline-block;
+        padding: 12px 28px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="cart-container">
+    <h2 style="text-align:center;">🛒 My Cart</h2>
+    {% if cart_items %}
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" class="cart-image">
+                    {% else %}
+                    No Image
+                    {% endif %}
+                </td>
+                <td>{{ item.product.product_name }}</td>
+                <td>₹ {{ item.item_total }}</td>
+
+                <td>
+                    <div class="qty-box">
+                        <a href="{% url 'myapp2:decrease_quantity' item.id %}" class="qty-btn">-</a>
+                        <span class="qty">{{ item.quantity }}</span>
+                        <a href="{% url 'myapp2:increase_quantity' item.id %}" class="qty-btn">+</a>
+                    </div>
+                </td>
+                <td>₹ {{ item.product.price }}</td>
+                <td>
+                    <a href="{% url 'myapp2:remove_from_cart' item.id %}" class="remove-btn">🗑️</a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="cart-total">
+        <h3>Total: ₹ {{ total_price }}</h3>
+        <a href="{% url 'myapp2:checkout' %}" class="checkout-btn">Proceed to Payment</a>
+
+    </div>
+    {% else %}
+    <p style="text-align:center;">Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+

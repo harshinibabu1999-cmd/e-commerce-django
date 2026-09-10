@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .dashboard-container {
+        width: 100%;
+        margin: 40px auto;
+        padding: 30px;
+        padding-bottom: 80px;
+        background: #f8f9ff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .dashboard-title {
+        text-align: center;
+        font-size: 28px;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-weight: bold;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+    }
+
+    th {
+        background-color: #355dc2;
+        color: white;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    
+    .action-buttons{
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .btn-edit {
+        padding: 6px 12px;
+        background-color: white;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+
+    .btn-delete {
+        padding: 6px 12px;
+        background-color: white;
+        color: white;
+        text-decoration: icon;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+
+    .btn-edit:hover {
+        background-color: #787e85;
+    }
+
+    .btn-delete:hover {
+        background-color: #787e85;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4a6cf7;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="dashboard-container">
+    <h2 class="dashboard-title">All Orders</h2>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Product Name</th>
+                    <th>Price (₹)</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in orders %}
+                <tr>
+                    <td>{{ p.user.username }}</td>
+                    <td>{{ p.product.product_name }}</td>
+                    <td>{{ p.product.price }}</td>
+                    <td>{{ p.quantity }}</td>
+                    <td>{{ p.order_date }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'myapp2:delete_product' p.product.id %}" class="btn-delete">🗑️</a>
+                            <a href="{% url 'myapp2:product_view' p.product.id %}" class="btn-edit">✏️</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No orders available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

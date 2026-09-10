@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    body {
+        background: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+        width: 350px;
+        margin: 80px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .login-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .login-container form p {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    .login-container input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+        transition: 0.3s;
+    }
+
+    .login-container input:focus {
+        border-color: tomato;
+        outline: none;
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+    }
+
+    .login-container button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 6px;
+        background: #3e52aa;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .login-container button:hover {
+        background: lightcoral;
+    }
+
+    .register-link {
+        margin-top: 15px;
+        display: block;
+        text-decoration: none;
+        color: #667eea;
+        font-size: 14px;
+    }
+
+    .register-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+
+    <a class="register-link" href="{% url 'myapp2:register_view' %}">
+        Don't have an account? Register
+    </a>
+</div>
+
+{% endblock %}
