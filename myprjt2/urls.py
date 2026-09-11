@@ -5,8 +5,8 @@ from django.views.static import serve
 from django.urls import re_path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('myapp2.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += [
