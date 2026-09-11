@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get(
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://web-production-915d7.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://e-commerce-django-production-f41d.up.railway.app']
 
 
 # Application definition
@@ -129,7 +129,7 @@ STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
-    
+
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
