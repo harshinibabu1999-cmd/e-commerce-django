@@ -78,7 +78,7 @@ def register_view(request):
 
 
         return redirect(
-            "myapp2:customer_dashboard"
+            "myapp2:home"
         )
 
 
