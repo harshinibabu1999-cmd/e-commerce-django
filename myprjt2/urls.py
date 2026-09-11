@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.views.static import serve
+from django.urls import re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,8 +10,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path(
-        settings.MEDIA_URL.lstrip('/'),
+    re_path(
+        r'^media/(?P<path>.*)$',
         serve,
         {'document_root': settings.MEDIA_ROOT}
     ),
