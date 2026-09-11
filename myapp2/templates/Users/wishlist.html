@@ -3,6 +3,11 @@
 {% block content %}
 
 <style>
+
+    /* =========================
+       WISHLIST TITLE
+    ========================= */
+
     .wishlist-title {
         text-align: center;
         margin: 25px 0;
@@ -11,12 +16,22 @@
         color: #333;
     }
 
+
+    /* =========================
+       WISHLIST CONTAINER
+    ========================= */
+
     .wishlist-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 25px;
         padding: 20px 40px;
     }
+
+
+    /* =========================
+       WISHLIST CARD
+    ========================= */
 
     .wishlist-card {
         background: #ffffff;
@@ -32,23 +47,38 @@
         box-shadow: 0 8px 18px rgba(0,0,0,0.15);
     }
 
+
+    /* =========================
+       PRODUCT IMAGE
+    ========================= */
+
     .wishlist-card img {
-    width: 30%;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 12px;  
-    border: 2px solid #eee;
-    display: block;
-    margin-bottom: 12px;
-    margin: 0 auto 12px;
+        width: 130px;
+        height: 130px;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 2px solid #eee;
+        display: block;
+        margin: 0 auto 12px;
     }
-    
+
+
+    /* =========================
+       PRODUCT NAME
+    ========================= */
 
     .wishlist-card h4 {
         margin: 6px 0;
         font-size: 15px;
         color: #333;
+        word-break: break-word;
     }
+
+
+    /* =========================
+       PRICE
+    ========================= */
 
     .price {
         font-size: 17px;
@@ -56,9 +86,24 @@
         color: #1e7e34;
     }
 
+
+    /* =========================
+       BUTTON GROUP
+    ========================= */
+
     .btn-group {
         margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
     }
+
+
+    /* =========================
+       CART BUTTON
+    ========================= */
 
     .cart-btn {
         display: inline-block;
@@ -68,13 +113,17 @@
         border-radius: 20px;
         text-decoration: none;
         font-size: 13px;
-        margin-right: 8px;
         transition: background 0.3s ease;
     }
 
     .cart-btn:hover {
         background: #0056b3;
     }
+
+
+    /* =========================
+       REMOVE BUTTON
+    ========================= */
 
     .remove-btn {
         display: inline-block;
@@ -91,35 +140,179 @@
         background: #b02a37;
     }
 
+
+    /* =========================
+       EMPTY MESSAGE
+    ========================= */
+
     .empty-message {
         text-align: center;
         margin-top: 40px;
         font-size: 18px;
         color: #777;
     }
+
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media (max-width: 768px) {
+
+        .wishlist-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            padding: 20px;
+        }
+
+        .wishlist-card {
+            padding: 18px;
+        }
+
+        .wishlist-title {
+            font-size: 25px;
+        }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .wishlist-container {
+            grid-template-columns: 1fr;
+            gap: 18px;
+            padding: 15px 10px;
+        }
+
+        .wishlist-card {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 18px;
+        }
+
+        .wishlist-card img {
+            width: 130px;
+            height: 130px;
+        }
+
+        .wishlist-title {
+            font-size: 23px;
+            margin: 20px 0;
+        }
+
+        .wishlist-card h4 {
+            font-size: 15px;
+        }
+
+        .price {
+            font-size: 16px;
+        }
+
+        .btn-group {
+            gap: 8px;
+        }
+
+        .cart-btn,
+        .remove-btn {
+            padding: 8px 14px;
+            font-size: 13px;
+        }
+
+    }
+
+
+    /* =========================
+       SMALL MOBILE
+    ========================= */
+
+    @media (max-width: 400px) {
+
+        .wishlist-container {
+            padding: 10px 5px;
+        }
+
+        .wishlist-card {
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .wishlist-card img {
+            width: 110px;
+            height: 110px;
+        }
+
+        .wishlist-title {
+            font-size: 21px;
+        }
+
+        .cart-btn,
+        .remove-btn {
+            padding: 7px 12px;
+            font-size: 12px;
+        }
+
+    }
+
 </style>
 
-<h2 class="wishlist-title">❤️ My Wishlist</h2>
+<h2 class="wishlist-title">
+    ❤️ My Wishlist
+</h2>
 
 <div class="wishlist-container">
-    {% for item in wishlist_items %}
-    <div class="wishlist-card">
 
-        <img src="{{ item.product.image.url }}" 
-             alt="{{ item.product.product_name }}">
+```
+{% for item in wishlist_items %}
 
-        <h4>{{ item.product.product_name }}</h4>
-        <h4 class="price">₹{{ item.product.price }}</h4>
-        <div class="btn-group">
-            <a href="{% url 'myapp2:cart_view' %}" class="cart-btn">Add to Cart</a>
+<div class="wishlist-card">
 
-            <a href="{% url 'myapp2:wishlist' item.product.id %}" 
-               class="remove-btn">Remove</a>
-        </div>
+    <img
+        src="{{ item.product.image.url }}"
+        alt="{{ item.product.product_name }}"
+    >
+
+    <h4>
+        {{ item.product.product_name }}
+    </h4>
+
+    <h4 class="price">
+        ₹{{ item.product.price }}
+    </h4>
+
+
+    <div class="btn-group">
+
+        <a
+            href="{% url 'myapp2:cart_view' %}"
+            class="cart-btn"
+        >
+            Add to Cart
+        </a>
+
+        <a
+            href="{% url 'myapp2:wishlist' item.product.id %}"
+            class="remove-btn"
+        >
+            Remove
+        </a>
+
     </div>
-    {% empty %}
-        <p class="empty-message">Your wishlist is empty ❤️</p>
-    {% endfor %}
+
+</div>
+
+{% empty %}
+
+    <p class="empty-message">
+        Your wishlist is empty ❤️
+    </p>
+
+{% endfor %}
+```
+
 </div>
 
 {% endblock %}

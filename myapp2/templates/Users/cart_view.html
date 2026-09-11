@@ -1,144 +1,452 @@
 {% extends "base.html" %}
+
 {% block content %}
+
 <style>
     .cart-container {
         max-width: 900px;
-        margin: 80px auto;
+        margin: 60px auto;
         padding: 30px;
         background: linear-gradient(135deg, #f6d365, #fda085);
         border-radius: 15px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
+    .cart-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #222;
+    }
+
+    /* ================= DESKTOP TABLE ================= */
+
     .cart-table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 30px;
+        background: #fda085;
+        border-radius: 10px;
+        overflow: hidden;
     }
 
-    .cart-table th,
+    .cart-table th {
+        padding: 14px 10px;
+        background: rgba(255, 255, 255, 0.65);
+        color: #333;
+        font-size: 14px;
+    }
+
     .cart-table td {
-        padding: 15px;
+        padding: 15px 10px;
         text-align: center;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #fda085;
+        color: #222;
+    }
+
+    .cart-table tr:last-child td {
+        border-bottom: none;
     }
 
     .cart-image {
-        width: 80px;
-        height: 80px;
+        width: 75px;
+        height: 75px;
         object-fit: cover;
         border-radius: 10px;
     }
+
+    .product-name {
+        font-weight: 600;
+    }
+
+    /* ================= QUANTITY ================= */
 
     .qty-box {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 7px;
     }
 
     .qty-btn {
-        display: inline-block;
-        padding: 5px 10px;
-        background-color: #28a745;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #28a745;
         color: white;
         text-decoration: none;
         border-radius: 5px;
-        font-size: 14px;
-        transition: 0.3s ease;
+        font-size: 17px;
+        font-weight: bold;
     }
 
     .qty-btn:hover {
-        background-color: #1e7e34;
+        background: #218838;
     }
 
+    .qty {
+        min-width: 25px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* ================= DELETE ================= */
+
     .remove-btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #dc3545;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #dc3545;
         color: white;
         text-decoration: none;
-        border-radius: 5px;
-        font-size: 14px;
-        transition: 0.3s ease;
+        border-radius: 6px;
     }
 
     .remove-btn:hover {
-        background-color: #c82333;
+        background: #c82333;
     }
 
+    /* ================= TOTAL ================= */
+
     .cart-total {
+        margin-top: 25px;
         text-align: right;
+    }
+
+    .cart-total h3 {
+        margin-bottom: 18px;
     }
 
     .checkout-btn {
         display: inline-block;
         padding: 12px 28px;
-        background-color: #007bff;
+        background: #007bff;
         color: white;
         text-decoration: none;
         border-radius: 8px;
         font-size: 16px;
-        transition: 0.3s ease;
+        font-weight: 500;
     }
 
     .checkout-btn:hover {
-        background-color: #0056b3;
+        background: #0056b3;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 650px) {
+
+        .cart-container {
+            margin: 25px 10px;
+            padding: 18px 12px;
+            border-radius: 12px;
+        }
+
+        .cart-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        /* Hide desktop table header */
+        .cart-table thead {
+            display: none;
+        }
+
+        .cart-table,
+        .cart-table tbody,
+        .cart-table tr,
+        .cart-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .cart-table {
+            background: transparent;
+            overflow: visible;
+        }
+
+        /* Product card */
+        .cart-table tr {
+            position: relative;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+        }
+
+        .cart-table td {
+            border: none;
+            padding: 4px 0;
+            text-align: left;
+        }
+
+        /* Top section: image + product name */
+        .cart-table td:first-child {
+            display: inline-block;
+            vertical-align: middle;
+            width: 80px;
+        }
+
+        .cart-table td:nth-child(2) {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(100% - 90px);
+            padding-left: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .cart-image {
+            width: 70px;
+            height: 70px;
+        }
+
+        /* Price */
+        .cart-table td:nth-child(3) {
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .cart-table td:nth-child(3)::before {
+            content: "Price: ";
+            color: #777;
+            font-weight: normal;
+        }
+
+        /* Quantity */
+        .cart-table td:nth-child(4) {
+            margin-top: 8px;
+        }
+
+        .cart-table td:nth-child(4)::before {
+            content: "Quantity: ";
+            color: #777;
+            margin-right: 8px;
+        }
+
+        .qty-box {
+            display: inline-flex;
+            justify-content: flex-start;
+            vertical-align: middle;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Item total */
+        .cart-table td:nth-child(5) {
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .cart-table td:nth-child(5)::before {
+            content: "Item Total: ";
+            color: #777;
+            font-weight: normal;
+        }
+
+        /* Delete button */
+        .cart-table td:nth-child(6) {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: auto;
+            padding: 0;
+        }
+
+        .remove-btn {
+            width: 34px;
+            height: 34px;
+            font-size: 14px;
+        }
+
+        /* Cart total */
+        .cart-total {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .cart-total h3 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            padding: 13px 10px;
+        }
+    }
+
+    /* ================= SMALL MOBILE ================= */
+
+    @media (max-width: 400px) {
+
+        .cart-container {
+            margin: 15px 5px;
+            padding: 15px 10px;
+        }
+
+        .cart-title {
+            font-size: 20px;
+        }
+
+        .cart-table tr {
+            padding: 12px;
+        }
+
+        .cart-image {
+            width: 62px;
+            height: 62px;
+        }
+
+        .cart-table td:first-child {
+            width: 70px;
+        }
+
+        .cart-table td:nth-child(2) {
+            width: calc(100% - 80px);
+            font-size: 14px;
+        }
+
+        .remove-btn {
+            width: 32px;
+            height: 32px;
+        }
     }
 </style>
 
 <div class="cart-container">
-    <h2 style="text-align:center;">🛒 My Cart</h2>
-    {% if cart_items %}
-    <table class="cart-table">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr>
-                <td>
-                    {% if item.product.image %}
-                    <img src="{{ item.product.image.url }}" class="cart-image">
-                    {% else %}
+
+
+<h2 class="cart-title">🛒 My Cart</h2>
+
+{% if cart_items %}
+
+<table class="cart-table">
+
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in cart_items %}
+
+        <tr>
+
+            <!-- Product Image -->
+            <td>
+                {% if item.product.image %}
+                    <img
+                        src="{{ item.product.image.url }}"
+                        class="cart-image"
+                        alt="{{ item.product.product_name }}"
+                    >
+                {% else %}
                     No Image
-                    {% endif %}
-                </td>
-                <td>{{ item.product.product_name }}</td>
-                <td>₹ {{ item.item_total }}</td>
+                {% endif %}
+            </td>
 
-                <td>
-                    <div class="qty-box">
-                        <a href="{% url 'myapp2:decrease_quantity' item.id %}" class="qty-btn">-</a>
-                        <span class="qty">{{ item.quantity }}</span>
-                        <a href="{% url 'myapp2:increase_quantity' item.id %}" class="qty-btn">+</a>
-                    </div>
-                </td>
-                <td>₹ {{ item.product.price }}</td>
-                <td>
-                    <a href="{% url 'myapp2:remove_from_cart' item.id %}" class="remove-btn">🗑️</a>
+            <!-- Product Name -->
+            <td class="product-name">
+                {{ item.product.product_name }}
+            </td>
 
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="cart-total">
-        <h3>Total: ₹ {{ total_price }}</h3>
-        <a href="{% url 'myapp2:checkout' %}" class="checkout-btn">Proceed to Payment</a>
+            <!-- Price -->
+            <td>
+                ₹ {{ item.product.price }}
+            </td>
 
-    </div>
-    {% else %}
-    <p style="text-align:center;">Your cart is empty.</p>
-    {% endif %}
+            <!-- Quantity -->
+            <td>
+                <div class="qty-box">
+
+                    <a
+                        href="{% url 'myapp2:decrease_quantity' item.id %}"
+                        class="qty-btn"
+                    >−</a>
+
+                    <span class="qty">
+                        {{ item.quantity }}
+                    </span>
+
+                    <a
+                        href="{% url 'myapp2:increase_quantity' item.id %}"
+                        class="qty-btn"
+                    >+</a>
+
+                </div>
+            </td>
+
+            <!-- Item Total -->
+            <td>
+                ₹ {{ item.item_total }}
+            </td>
+
+            <!-- Delete -->
+            <td>
+                <a
+                    href="{% url 'myapp2:remove_from_cart' item.id %}"
+                    class="remove-btn"
+                    title="Remove from cart"
+                >
+                    🗑️
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+<!-- Cart Total -->
+
+<div class="cart-total">
+
+    <h3>
+        Total: ₹ {{ total_price }}
+    </h3>
+
+    <a
+        href="{% url 'myapp2:checkout' %}"
+        class="checkout-btn"
+    >
+        Proceed to Payment
+    </a>
+
 </div>
+
+{% else %}
+
+    <p style="text-align:center;">
+        Your cart is empty.
+    </p>
+
+{% endif %}
+
+
+</div>
+
 {% endblock %}
-
-
-
